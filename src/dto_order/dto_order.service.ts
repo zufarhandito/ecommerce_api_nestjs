@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateDtoOrderDto } from './dto/create-dto_order.dto';
 import { UpdateDtoOrderDto } from './dto/update-dto_order.dto';
 import { Sequelize } from 'sequelize-typescript';
+import { order_details, orders, users } from 'models';
 
 @Injectable()
 export class DtoOrderService {
@@ -37,8 +38,12 @@ export class DtoOrderService {
     }
   }
 
-  findAll() {
-    return `This action returns all dtoOrder`;
+  async findAll() {
+    try {
+      return 'dari users aja'
+    } catch (error) {
+      return error.message
+    }
   }
 
   findOne(id: number) {

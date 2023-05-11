@@ -2,6 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { DtoUserService } from './dto_user.service';
 import { CreateDtoUserDto } from './dto/create-dto_user.dto';
 import { UpdateDtoUserDto } from './dto/update-dto_user.dto';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/auth.guard';
 
 @Controller('dto-user')
 export class DtoUserController {
@@ -17,9 +19,11 @@ export class DtoUserController {
     return this.dtoUserService.createSP(createDtoUserDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   findAll() {
     return this.dtoUserService.findAll();
+    // return 'woi'
   }
 
   @Get(':id')

@@ -9,9 +9,17 @@ import { DtoProductModule } from './dto_product/dto_product.module';
 import { DtoUserModule } from './dto_user/dto_user.module';
 import { DtoCustomersModule } from './dto-customers/dto-customers.module';
 import { DtoOrderModule } from './dto_order/dto_order.module';
+import { users } from 'models';
+import { JwtModule } from '@nestjs/jwt';
+// import { jwtConstants } from './constants';
 
 @Module({
   imports: [
+    JwtModule.register({
+      global: true,
+      secret: process.env.SECRET_KEY,
+      signOptions: { expiresIn: '60s' },
+    }),
     SequelizeModule.forRootAsync({
       useFactory: () => ({
         dialect: 'postgres',
@@ -24,11 +32,12 @@ import { DtoOrderModule } from './dto_order/dto_order.module';
         autoLoadModels:true
       }),
     }),
+    SequelizeModule.forFeature([users]),
     DtoProductCategoryModule,
     DtoProductModule,
     DtoUserModule,
     DtoCustomersModule,
-    DtoOrderModule
+    DtoOrderModule,
   ],
   controllers: [AppController],
   providers: [AppService]

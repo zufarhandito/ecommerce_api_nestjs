@@ -6,6 +6,24 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import * as path from 'path';
 import { diskStorage } from 'multer';
 
+const multerConfig = {
+  storage: diskStorage({
+    destination: './public/uploads',
+    filename: (req, file, cb) => {
+      return cb(null, 'product_'+Date.now()+path.extname(file.originalname));
+    }
+  })
+}
+
+const validateImage = new ParseFilePipeBuilder()
+                        .addFileTypeValidator({
+                          fileType: 'jpg|jpeg|png'
+                        })
+                        .addMaxSizeValidator({
+                          maxSize: 10000000
+                        })
+                        .build()
+
 @Controller('dto-product')
 export class DtoProductController {
   constructor(
@@ -13,24 +31,8 @@ export class DtoProductController {
   ) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('image', {
-    storage: diskStorage({
-      destination: './public/uploads',
-      filename: (req, file, cb) => {
-        return cb(null, 'product_'+Date.now()+path.extname(file.originalname));
-      }
-    })
-  }))
-  create(@Body() createDtoProductDto: CreateDtoProductDto, @UploadedFile(
-    new ParseFilePipeBuilder()
-      .addFileTypeValidator({
-        fileType: 'jpg|jpeg|png'
-      })
-      .addMaxSizeValidator({
-        maxSize: 10000000
-      })
-      .build()
-  ) file: Express.Multer.File) {
+  @UseInterceptors(FileInterceptor('image',multerConfig))
+  create(@Body() createDtoProductDto: CreateDtoProductDto, @UploadedFile(validateImage) file: Express.Multer.File) {
     return this.dtoProductService.create(createDtoProductDto, file);
   }
 
@@ -45,24 +47,8 @@ export class DtoProductController {
   }
 
   @Patch(':id')
-  @UseInterceptors(FileInterceptor('image', {
-    storage: diskStorage({
-      destination: './uploads',
-      filename: (req, file, cb) => {
-        return cb(null, 'product_'+Date.now()+path.extname(file.originalname));
-      }
-    })
-  }))
-  update(@Param('id') id: string, @Body() updateDtoProductDto: UpdateDtoProductDto, @UploadedFile(
-    new ParseFilePipeBuilder()
-    .addFileTypeValidator({
-      fileType: 'jpg|jpeg|png'
-    })
-    .addMaxSizeValidator({
-      maxSize: 10000000
-    })
-    .build()
-  ) file: Express.Multer.File) {
+  @UseInterceptors(FileInterceptor('image', multerConfig))
+  update(@Param('id') id: string, @Body() updateDtoProductDto: UpdateDtoProductDto, @UploadedFile(validateImage) file: Express.Multer.File) {
     return this.dtoProductService.update(+id, updateDtoProductDto, file);
   }
 

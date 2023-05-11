@@ -6,7 +6,9 @@ import {
   Index,
   Sequelize,
   ForeignKey,
+  HasOne,
 } from 'sequelize-typescript';
+import { users } from './users';
 
 export interface customersAttributes {
   id?: number;
@@ -52,4 +54,7 @@ export class customers
     defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
   })
   updatedat?: Date;
+
+  @HasOne(() => users, { sourceKey: 'user_id' })
+  user?: users;
 }
