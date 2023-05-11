@@ -1,8 +1,6 @@
-import { Module } from '@nestjs/common';
+import { Module,NestModule,MiddlewareConsumer } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-// import multer from 'multer';
-import { MulterModule } from '@nestjs/platform-express/multer';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { DtoProductCategoryModule } from './dto_product_category/dto_product_category.module';
 import { DtoProductModule } from './dto_product/dto_product.module';
@@ -11,6 +9,7 @@ import { DtoCustomersModule } from './dto-customers/dto-customers.module';
 import { DtoOrderModule } from './dto_order/dto_order.module';
 import { users } from 'models';
 import { JwtModule } from '@nestjs/jwt';
+import { LoggerMiddleware } from 'middleware/logger.middleware';
 // import { jwtConstants } from './constants';
 
 @Module({
@@ -42,4 +41,10 @@ import { JwtModule } from '@nestjs/jwt';
   controllers: [AppController],
   providers: [AppService]
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes('dto-user')
+  }
+}

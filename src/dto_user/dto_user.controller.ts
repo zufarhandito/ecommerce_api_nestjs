@@ -5,6 +5,7 @@ import { UpdateDtoUserDto } from './dto/update-dto_user.dto';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('dto-user')
 export class DtoUserController {
   constructor(private readonly dtoUserService: DtoUserService) {}
@@ -19,7 +20,6 @@ export class DtoUserController {
     return this.dtoUserService.createSP(createDtoUserDto);
   }
 
-  @UseGuards(AuthGuard)
   @Get()
   findAll() {
     return this.dtoUserService.findAll();

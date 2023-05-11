@@ -5,6 +5,8 @@ import { UpdateDtoProductDto } from './dto/update-dto_product.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import * as path from 'path';
 import { diskStorage } from 'multer';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/auth.guard';
 
 const multerConfig = {
   storage: diskStorage({
@@ -24,6 +26,8 @@ const validateImage = new ParseFilePipeBuilder()
                         })
                         .build()
 
+
+@UseGuards(AuthGuard)
 @Controller('dto-product')
 export class DtoProductController {
   constructor(
