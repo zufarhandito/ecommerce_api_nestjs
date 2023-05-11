@@ -1,4 +1,4 @@
-import { Module,NestModule,MiddlewareConsumer } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
@@ -10,14 +10,13 @@ import { DtoOrderModule } from './dto_order/dto_order.module';
 import { users } from 'models';
 import { JwtModule } from '@nestjs/jwt';
 import { LoggerMiddleware } from 'middleware/logger.middleware';
-// import { jwtConstants } from './constants';
 
 @Module({
   imports: [
     JwtModule.register({
       global: true,
       secret: process.env.SECRET_KEY,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '5m' },
     }),
     SequelizeModule.forRootAsync({
       useFactory: () => ({
@@ -28,7 +27,7 @@ import { LoggerMiddleware } from 'middleware/logger.middleware';
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
         models: [],
-        autoLoadModels:true
+        autoLoadModels: true,
       }),
     }),
     SequelizeModule.forFeature([users]),
@@ -39,12 +38,10 @@ import { LoggerMiddleware } from 'middleware/logger.middleware';
     DtoOrderModule,
   ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [AppService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LoggerMiddleware)
-      .forRoutes('dto-user')
+    consumer.apply(LoggerMiddleware).forRoutes('dto-user');
   }
 }

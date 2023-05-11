@@ -7,66 +7,69 @@ import { users } from 'models';
 @Injectable()
 export class DtoCustomersService {
   async create(body: CreateDtoCustomerDto) {
-    return 'Customers can only be created when a user account is created'
+    return 'Customers can only be created when a user account is created';
   }
 
   async findAll() {
     try {
-      const data = await customers.findAll()
-      if(!data) throw new Error('Data tidak ada')
-      return data 
+      const data = await customers.findAll();
+      if (!data) throw new Error('Data tidak ada');
+      return data;
     } catch (error) {
-      return error.message
+      return error.message;
     }
   }
 
   async findOne(id: number) {
     try {
-      const data = await customers.findByPk(id)
-      if(!data) throw new Error('Data tidak ada')
-      return data
+      const data = await customers.findByPk(id);
+      if (!data) throw new Error('Data tidak ada');
+      return data;
     } catch (error) {
-      return error.message
+      return error.message;
     }
   }
 
   async update(id: number, body: UpdateDtoCustomerDto) {
     try {
-      const data = await customers.update({
-        firstname: body.firstname,
-        lastname: body.lastname
-      },{
-        where: {
-          id: id
+      const data = await customers.update(
+        {
+          firstname: body.firstname,
+          lastname: body.lastname,
         },
-        returning: true
-      })
+        {
+          where: {
+            id: id,
+          },
+          returning: true,
+        },
+      );
 
-      if(data[1].length === 0) throw new Error('Gagal di update! cek id')
-      return data
+      if (data[1].length === 0) throw new Error('Gagal di update! cek id');
+      return data;
     } catch (error) {
-      return error.message
+      return error.message;
     }
   }
 
   async remove(id: number) {
     try {
       const data = await customers.findByPk(id);
-      if(!data) throw new Error('Data tidak ditemukan');
+      if (!data) throw new Error('Data tidak ditemukan');
 
       await customers.destroy({
         where: {
-          id: id
-        }
-      })
+          id: id,
+        },
+      });
 
       await users.destroy({
         where: {
-          id: data.user_id
-        }
-      })
+          id: data.user_id,
+        },
+      });
     } catch (error) {
-      return error.message
+      return error.message;
     }
   }
 }

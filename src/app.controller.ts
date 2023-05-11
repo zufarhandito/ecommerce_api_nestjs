@@ -5,10 +5,9 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @HttpCode(HttpStatus.OK) 
+  @HttpCode(HttpStatus.OK)
   @Post('login')
-  login(@Body() body: any ): any {
+  login(@Body() body: any): any {
     return this.appService.login(body);
   }
-
 }

@@ -20,8 +20,8 @@ export class LoggerMiddleware implements NestMiddleware {
         try {
             const token = req.headers.authorization
             if(!token) throw new UnauthorizedException()
-            await this.jwtService.verifyAsync(token, {secret: process.env.SECRET_KEY})
 
+            await this.jwtService.verifyAsync(token, {secret: process.env.SECRET_KEY})
             next()
         } catch (error) {
             throw new UnauthorizedException()

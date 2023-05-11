@@ -7,6 +7,6 @@ import { products } from 'models';
 @Module({
   imports: [SequelizeModule.forFeature([products])],
   controllers: [DtoProductController],
-  providers: [DtoProductService]
+  providers: [DtoProductService],
 })
 export class DtoProductModule {}

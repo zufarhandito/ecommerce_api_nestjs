@@ -1,11 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { DtoUserService } from './dto_user.service';
 import { CreateDtoUserDto } from './dto/create-dto_user.dto';
 import { UpdateDtoUserDto } from './dto/update-dto_user.dto';
-import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/auth.guard';
+// import { UseGuards } from '@nestjs/common';
+// import { AuthGuard } from 'src/auth.guard';
 
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 @Controller('dto-user')
 export class DtoUserController {
   constructor(private readonly dtoUserService: DtoUserService) {}

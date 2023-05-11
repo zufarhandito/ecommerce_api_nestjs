@@ -13,81 +13,88 @@ export class DtoProductService {
         description: body.description,
         category_id: body.category_id,
         price: body.price,
-        image: file.filename
-      })
-      return data
+        image: file.filename,
+      });
+      return data;
     } catch (error) {
-      return error.message
+      return error.message;
     }
   }
 
   async findAll() {
     try {
       const data = await products.findAll();
-      if(!data) throw new Error('Data tidak ditemukan')
+      if (!data) throw new Error('Data tidak ditemukan');
 
-      return data
+      return data;
     } catch (error) {
-      return error.message
+      return error.message;
     }
   }
 
   async findOne(id: number) {
     try {
       const data = await products.findByPk(id);
-      if(!data) throw new Error('Data tidak ditemukan')
-      return data
+      if (!data) throw new Error('Data tidak ditemukan');
+      return data;
     } catch (error) {
-      return error.message
+      return error.message;
     }
   }
 
-  async update(id: number, body: UpdateDtoProductDto,file: Express.Multer.File) {
+  async update(
+    id: number,
+    body: UpdateDtoProductDto,
+    file: Express.Multer.File,
+  ) {
     try {
       const data = await products.findByPk(id);
-      if(!data) throw new Error('Data tidak ditemukan')
+      if (!data) throw new Error('Data tidak ditemukan');
 
-      let setImage = data.image
+      let setImage = data.image;
 
-      if(file){
-        fs.unlinkSync('uploads/'+data.image)
-        setImage = file.filename
+      if (file) {
+        fs.unlinkSync('uploads/' + data.image);
+        setImage = file.filename;
       }
 
-      const data2 = await products.update({
-        name: body.name,
-        description: body.description,
-        category_id: body.category_id,
-        price: body.price,
-        image: setImage
-      },{
-        where:{
-          id: id
+      const data2 = await products.update(
+        {
+          name: body.name,
+          description: body.description,
+          category_id: body.category_id,
+          price: body.price,
+          image: setImage,
         },
-        returning: true
-      })
-      return data2
+        {
+          where: {
+            id: id,
+          },
+          returning: true,
+        },
+      );
+      return data2;
     } catch (error) {
-      return error.message
+      return error.message;
     }
   }
 
   async remove(id: number) {
     try {
-      const data = await this.findOne(id)
-      if(!data) throw new Error('tidak ketemu')
+      const data = await this.findOne(id);
+      if (!data) throw new Error('tidak ketemu');
 
       await products.destroy({
         where: {
-          id: id
-        }
-      })
+          id: id,
+        },
+      });
 
-      fs.unlinkSync('public/uploads/'+data.image)
-      
-      return 'sukses'
+      fs.unlinkSync('public/uploads/' + data.image);
+
+      return 'sukses';
     } catch (error) {
-      return error.message
+      return error.message;
     }
   }
 }
