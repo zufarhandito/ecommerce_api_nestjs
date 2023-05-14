@@ -11,7 +11,7 @@ import { DtoOrderService } from './dto_order.service';
 import { CreateDtoOrderDto } from './dto/create-dto_order.dto';
 import { UpdateDtoOrderDto } from './dto/update-dto_order.dto';
 
-@Controller('dto-order')
+@Controller('orders')
 export class DtoOrderController {
   constructor(private readonly dtoOrderService: DtoOrderService) {}
 
@@ -33,7 +33,7 @@ export class DtoOrderController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateDtoOrderDto: UpdateDtoOrderDto,
+    @Body() updateDtoOrderDto: UpdateDtoOrderDto[],
   ) {
     return this.dtoOrderService.update(+id, updateDtoOrderDto);
   }

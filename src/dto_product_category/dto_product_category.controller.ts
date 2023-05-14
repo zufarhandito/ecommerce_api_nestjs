@@ -11,7 +11,7 @@ import { DtoProductCategoryService } from './dto_product_category.service';
 import { CreateDtoProductCategoryDto } from './dto/create-dto_product_category.dto';
 import { UpdateDtoProductCategoryDto } from './dto/update-dto_product_category.dto';
 
-@Controller('dto-product-category')
+@Controller('product-categories')
 export class DtoProductCategoryController {
   constructor(
     private readonly dtoProductCategoryService: DtoProductCategoryService,

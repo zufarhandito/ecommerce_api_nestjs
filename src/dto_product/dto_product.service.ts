@@ -7,7 +7,14 @@ import * as fs from 'fs';
 @Injectable()
 export class DtoProductService {
   async create(body: CreateDtoProductDto, file: Express.Multer.File) {
+    let backupFile = '';
     try {
+      if (!body.name) throw new Error('nama barang kosong');
+      if (!body.description) throw new Error('deskripsi barang kosong');
+      if (!body.category_id) throw new Error('kategori barang kosong');
+      if (!body.price) throw new Error('harga barang kosong');
+
+      backupFile = file.filename;
       const data = await products.create({
         name: body.name,
         description: body.description,
@@ -17,6 +24,7 @@ export class DtoProductService {
       });
       return data;
     } catch (error) {
+      fs.unlinkSync('public/uploads/' + backupFile);
       return error.message;
     }
   }
@@ -54,7 +62,7 @@ export class DtoProductService {
       let setImage = data.image;
 
       if (file) {
-        fs.unlinkSync('uploads/' + data.image);
+        fs.unlinkSync('public/uploads/' + data.image);
         setImage = file.filename;
       }
 

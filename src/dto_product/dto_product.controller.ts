@@ -9,8 +9,6 @@ import {
   UseInterceptors,
   UploadedFile,
   ParseFilePipeBuilder,
-  HttpStatus,
-  UsePipes,
 } from '@nestjs/common';
 import { DtoProductService } from './dto_product.service';
 import { CreateDtoProductDto } from './dto/create-dto_product.dto';
@@ -20,7 +18,6 @@ import * as path from 'path';
 import { diskStorage } from 'multer';
 // import { UseGuards } from '@nestjs/common';
 // import { AuthGuard } from 'src/auth.guard';
-// import { CustomFileInterceptorInterceptor } from 'src/custom-file-interceptor/custom-file-interceptor.interceptor';
 
 const multerConfig = {
   storage: diskStorage({
@@ -44,7 +41,7 @@ const validateImage = new ParseFilePipeBuilder()
   .build();
 
 // @UseGuards(AuthGuard)
-@Controller('dto-product')
+@Controller('products')
 export class DtoProductController {
   constructor(private readonly dtoProductService: DtoProductService) {}
 

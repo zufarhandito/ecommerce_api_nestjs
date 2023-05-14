@@ -9,7 +9,9 @@ import { DtoCustomersModule } from './dto-customers/dto-customers.module';
 import { DtoOrderModule } from './dto_order/dto_order.module';
 import { users } from 'models';
 import { JwtModule } from '@nestjs/jwt';
-import { LoggerMiddleware } from 'middleware/logger.middleware';
+// import { LoggerMiddleware } from 'middleware/logger.middleware';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth.guard';
 
 @Module({
   imports: [
@@ -38,10 +40,18 @@ import { LoggerMiddleware } from 'middleware/logger.middleware';
     DtoOrderModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: AuthGuard,
+    // },
+  ],
 })
 export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('dto-user');
-  }
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer.apply(LoggerMiddleware)
+  //     .exclude('login')
+  //     .forRoutes('*')
+  // }
 }
