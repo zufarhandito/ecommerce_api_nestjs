@@ -1,0 +1,114 @@
+{
+  "kind": "youtube#searchListResponse",
+  "etag": "zoa63G1iYzvtIEayiJHphbZ19RQ",
+  "nextPageToken": "CAMQAA",
+  "regionCode": "ID",
+  "pageInfo": {
+    "totalResults": 9,
+    "resultsPerPage": 3
+  },
+  "items": [
+    {
+      "kind": "youtube#searchResult",
+      "etag": "Zp1fzQjF3z4_nHrWbOizkdDWtUI",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "VseuKTCXr8M"
+      },
+      "snippet": {
+        "publishedAt": "2023-04-21T09:11:06Z",
+        "channelId": "UCbPOziblvvcffpbO5z1uqVQ",
+        "title": "Selamat Hari Raya Idul Fitri 1444 H | Ilham Nurhidayatullah - Ketua Umum PP Hima Persis",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/VseuKTCXr8M/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/VseuKTCXr8M/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/VseuKTCXr8M/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "pphimapersis.official",
+        "liveBroadcastContent": "none",
+        "publishTime": "2023-04-21T09:11:06Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "F6Pbe0B5d68De5GSJk1P6tXfU5M",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "8jPojTUo4lM"
+      },
+      "snippet": {
+        "publishedAt": "2023-04-18T20:30:25Z",
+        "channelId": "UCbPOziblvvcffpbO5z1uqVQ",
+        "title": "Selamat Mudik Lebaran | Ilham Nurhidayatullah - Ketua Umum PP Hima Persis",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/8jPojTUo4lM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/8jPojTUo4lM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/8jPojTUo4lM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "pphimapersis.official",
+        "liveBroadcastContent": "none",
+        "publishTime": "2023-04-18T20:30:25Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "sC7R8z7_EUWuN8HgUlQ7fyhY0iQ",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "TMYZqPcKhBw"
+      },
+      "snippet": {
+        "publishedAt": "2023-04-14T07:18:35Z",
+        "channelId": "UCbPOziblvvcffpbO5z1uqVQ",
+        "title": "Ramadhan Talk | Ustad Fahri Faturrohman, S.Pd. - Peristiwa Penting di Bulan Ramadhan",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/TMYZqPcKhBw/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/TMYZqPcKhBw/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/TMYZqPcKhBw/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "pphimapersis.official",
+        "liveBroadcastContent": "none",
+        "publishTime": "2023-04-14T07:18:35Z"
+      }
+    }
+  ]
+}

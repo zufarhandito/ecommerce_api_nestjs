@@ -23,7 +23,7 @@ export class DtoUserController {
     return this.dtoUserService.create(createDtoUserDto);
   }
 
-  @Post()
+  @Post('sp')
   createSP(@Body() createDtoUserDto: CreateDtoUserDto) {
     return this.dtoUserService.createSP(createDtoUserDto);
   }

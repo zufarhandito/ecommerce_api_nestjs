@@ -52,11 +52,13 @@ export class DtoUserService {
       dataBody.password = hashed;
 
       const data = `[${JSON.stringify(dataBody)}]`;
-      const result = await this.sequelize.query(
-        `CALL InsertUserCustomer2('${data}')`,
+      await this.sequelize.query(
+        `CALL InsertUserCustomer('${data}')`,
       );
 
-      return result;
+      return {
+        message: "Submit berhasil"
+      };
     } catch (error) {
       return error.message;
     }
@@ -148,7 +150,12 @@ export class DtoUserService {
 
   async findOne(id: number) {
     try {
-      const data = await users.findByPk(id);
+      const data = await users.findOne({
+        where:{
+          id:id
+        },
+        include:{model:customers}
+      });
       return data;
     } catch (error) {
       return error.message;
@@ -168,20 +175,21 @@ export class DtoUserService {
         password = passHash;
       }
 
-      const data2 = await users.update(
-        {
-          username: updateDtoUserDto.username,
-          password: password,
-        },
-        {
-          where: {
-            id: id,
-          },
-          returning: true,
-        },
-      );
+      const newObj = {
+        id: id,
+        username: updateDtoUserDto.username,
+        password: password,
+        firstname: updateDtoUserDto.firstname,
+        lastname: updateDtoUserDto.lastname
+      }
 
-      return data2;
+      const data2 = `[${JSON.stringify(newObj)}]`;
+      await this.sequelize.query(`call updateusercustomer('${data2}')`);
+
+      return {
+        message: updateDtoUserDto
+      }
+
     } catch (error) {
       return error.message;
     }
