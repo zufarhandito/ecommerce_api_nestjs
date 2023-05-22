@@ -9,12 +9,17 @@ import { DtoCustomersModule } from './dto-customers/dto-customers.module';
 import { DtoOrderModule } from './dto_order/dto_order.module';
 import { users } from 'models';
 import { JwtModule } from '@nestjs/jwt';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 // import { LoggerMiddleware } from 'middleware/logger.middleware';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public/uploads'),
+    }),
     JwtModule.register({
       global: true,
       secret: process.env.SECRET_KEY,

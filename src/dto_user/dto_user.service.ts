@@ -55,9 +55,10 @@ export class DtoUserService {
       await this.sequelize.query(
         `CALL InsertUserCustomer('${data}')`,
       );
-
+      // return dataBody
       return {
-        message: "Submit berhasil"
+        status: 201,
+        message: "Data berhasil dibuat"
       };
     } catch (error) {
       return error.message;
@@ -142,7 +143,11 @@ export class DtoUserService {
       // join order_details on order_details.order_id = orders.id
       // join products on products.id = order_details.product_id
       // `)
-      return data;
+      return {
+        status: 200,
+        message: 'Success',
+        data: data
+      }
     } catch (error) {
       return error.message;
     }
@@ -187,7 +192,7 @@ export class DtoUserService {
       await this.sequelize.query(`call updateusercustomer('${data2}')`);
 
       return {
-        message: updateDtoUserDto
+        message: "Update berhasil!"
       }
 
     } catch (error) {
@@ -202,7 +207,9 @@ export class DtoUserService {
 
       await this.sequelize.query(`delete from users where id = ${id}`);
 
-      return 'sukses menghapus';
+      return {
+        message: 'Berhasil dihapus'
+      }
     } catch (error) {
       return error.message;
     }
