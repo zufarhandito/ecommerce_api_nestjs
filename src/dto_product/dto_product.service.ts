@@ -6,7 +6,7 @@ import * as fs from 'fs';
 
 @Injectable()
 export class DtoProductService {
-  async create(body: CreateDtoProductDto, file: Express.Multer.File) {
+  async create(body: CreateDtoProductDto, file?: Express.Multer.File) {
     // let backupFile = '';
     try {
       // if (!body.name) throw new Error('nama barang kosong');
@@ -14,13 +14,16 @@ export class DtoProductService {
       // if (!body.category_id) throw new Error('kategori barang kosong');
       // if (!body.price) throw new Error('harga barang kosong');
 
-      // backupFile = file.filename;
+      let imageFile = file.filename;
+      if(!file){
+        imageFile='product.png'
+      }
       const data = await products.create({
         name: body.name,
         description: body.description,
         category_id: body.category_id,
         price: body.price,
-        image: file.filename,
+        image: imageFile,
       });
       return {
         status: 201,
@@ -87,7 +90,11 @@ export class DtoProductService {
           returning: true,
         },
       );
-      return data2;
+      return {
+        status: 200,
+        message: 'Data berhasil di update',
+        data: data2[1][0]
+      };
     } catch (error) {
       return error.message;
     }

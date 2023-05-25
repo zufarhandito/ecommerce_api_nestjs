@@ -9,6 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
   app.use('/uploads', express.static('public/uploads'));
+
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(process.env.APP_PORT, () => {
     console.log('server listening on port ' + process.env.APP_PORT);

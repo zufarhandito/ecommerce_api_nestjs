@@ -22,6 +22,7 @@ export class LoggerMiddleware implements NestMiddleware {
             if(!token) throw new UnauthorizedException()
 
             await this.jwtService.verifyAsync(token, {secret: process.env.SECRET_KEY})
+            // res.send(decoded)
             next()
         } catch (error) {
             throw new UnauthorizedException()

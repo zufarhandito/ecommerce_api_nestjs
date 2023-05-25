@@ -10,8 +10,6 @@ import {
 import { DtoUserService } from './dto_user.service';
 import { CreateDtoUserDto } from './dto/create-dto_user.dto';
 import { UpdateDtoUserDto } from './dto/update-dto_user.dto';
-// import { UseGuards } from '@nestjs/common';
-// import { AuthGuard } from 'src/auth.guard';
 
 // @UseGuards(AuthGuard)
 @Controller('users')
@@ -31,7 +29,6 @@ export class DtoUserController {
   @Get()
   findAll() {
     return this.dtoUserService.findAll();
-    // return 'woi'
   }
 
   @Get(':id')
@@ -47,5 +44,10 @@ export class DtoUserController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.dtoUserService.remove(+id);
+  }
+
+  @Post('page')
+  getPage(@Body() offset:number){
+    return this.dtoUserService.getPaginatedUsers(offset)
   }
 }

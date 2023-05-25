@@ -11,7 +11,7 @@ import { users } from 'models';
 import { JwtModule } from '@nestjs/jwt';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-// import { LoggerMiddleware } from 'middleware/logger.middleware';
+import { LoggerMiddleware } from 'middleware/logger.middleware';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
 
@@ -23,7 +23,7 @@ import { AuthGuard } from './auth.guard';
     JwtModule.register({
       global: true,
       secret: process.env.SECRET_KEY,
-      signOptions: { expiresIn: '5m' },
+      signOptions: { expiresIn: '15m' },
     }),
     SequelizeModule.forRootAsync({
       useFactory: () => ({
@@ -54,9 +54,9 @@ import { AuthGuard } from './auth.guard';
   ],
 })
 export class AppModule {
-  // configure(consumer: MiddlewareConsumer) {
-  //   consumer.apply(LoggerMiddleware)
-  //     .exclude('login')
-  //     .forRoutes('*')
-  // }
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware)
+      .exclude('login')
+      .forRoutes('*')
+  }
 }

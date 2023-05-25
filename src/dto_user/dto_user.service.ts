@@ -214,4 +214,27 @@ export class DtoUserService {
       return error.message;
     }
   }
+
+  async getPaginatedUsers(dataa: any): Promise<any>{
+    try {
+      const jumlah:any = await this.sequelize.query('select count(users.id) from users join customers on users.id = customers.user_id')
+
+      const data = await this.sequelize.query(`select * from users
+      join customers on users.id = customers.user_id
+      order by users.id
+      limit ${dataa.limit} offset ${dataa.offset}`)
+
+      return {
+        status: 200,
+        message: 'sukses',
+        totalData: jumlah[0][0].count,
+        data: data[0],
+      }
+
+    } catch (error) {
+      return {
+        message: 'gagal'
+      }
+    }
+  }
 }

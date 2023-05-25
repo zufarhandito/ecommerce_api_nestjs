@@ -21,7 +21,10 @@ export class DtoProductCategoryService {
         message: 'sukses',
         data: data,
       };
-      return result;
+      return {
+        message: 'sukses',
+        data: result
+      }
     } catch (error) {
       return error.message;
     }
@@ -63,7 +66,11 @@ export class DtoProductCategoryService {
       );
 
       if (data[1].length === 0) throw new Error('Gagal update data! Cek id mu');
-      return data;
+      return {
+        status: 200,
+        message: 'sukses',
+        data: data
+      };
     } catch (error) {
       return error.message;
     }
