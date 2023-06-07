@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
     // const token = request.headers.authorization
     if (!token) throw new UnauthorizedException({ 
-      status: 403,
+      status: 401,
       message: 'Token tidak ada' });
 
     try {

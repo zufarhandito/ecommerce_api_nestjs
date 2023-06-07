@@ -23,7 +23,7 @@ import { AuthGuard } from './auth.guard';
     JwtModule.register({
       global: true,
       secret: process.env.SECRET_KEY,
-      signOptions: { expiresIn: '15m' },
+      signOptions: { expiresIn: '15s' },
     }),
     SequelizeModule.forRootAsync({
       useFactory: () => ({
