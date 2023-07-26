@@ -18,4 +18,7 @@ export class CreateDtoProductDto {
   price: any;
 
   image?: any;
+
+  @IsNotEmpty()
+  weight: string;
 }

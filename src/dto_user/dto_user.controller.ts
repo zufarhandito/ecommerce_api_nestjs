@@ -47,7 +47,7 @@ export class DtoUserController {
   }
 
   @Post('page')
-  getPage(@Body() offset:number){
-    return this.dtoUserService.getPaginatedUsers(offset)
+  getPage(@Body() offset: number) {
+    return this.dtoUserService.getPaginatedUsers(offset);
   }
 }

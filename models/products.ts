@@ -21,6 +21,7 @@ export interface productsAttributes {
   image?: string;
   createdat?: Date;
   updatedat?: Date;
+  weightkg?: string;
 }
 
 @Table({ tableName: 'products', schema: 'public', timestamps: false })
@@ -30,6 +31,7 @@ export class products
 {
   @Column({
     primaryKey: true,
+    autoIncrement: true,
     type: DataType.INTEGER,
     defaultValue: Sequelize.literal("nextval('products_id_seq'::regclass)"),
   })
@@ -54,17 +56,20 @@ export class products
 
   @Column({
     allowNull: true,
-    type: DataType.DATE(6),
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    type: DataType.DATE,
+    defaultValue: Sequelize.literal('now()'),
   })
   createdat?: Date;
 
   @Column({
     allowNull: true,
-    type: DataType.DATE(6),
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    type: DataType.DATE,
+    defaultValue: Sequelize.literal('now()'),
   })
   updatedat?: Date;
+
+  @Column({ allowNull: true, type: DataType.STRING(3) })
+  weightkg?: string;
 
   @BelongsTo(() => product_categories)
   product_category?: product_categories;

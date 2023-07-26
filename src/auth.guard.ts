@@ -21,9 +21,11 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
     // const token = request.headers.authorization
-    if (!token) throw new UnauthorizedException({ 
-      status: 401,
-      message: 'Token tidak ada' });
+    if (!token)
+      throw new UnauthorizedException({
+        status: 401,
+        message: 'Token tidak ada',
+      });
 
     try {
       await this.jwtService.verifyAsync(token, {
@@ -31,9 +33,10 @@ export class AuthGuard implements CanActivate {
       });
       // request['username'] = payload;
     } catch (error) {
-      throw new UnauthorizedException({ 
+      throw new UnauthorizedException({
         status: 403,
-        message: 'Token tidak valid' });
+        message: 'Token tidak valid',
+      });
     }
     return true;
   }

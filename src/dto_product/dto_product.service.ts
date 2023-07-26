@@ -9,27 +9,19 @@ export class DtoProductService {
   async create(body: CreateDtoProductDto, file?: Express.Multer.File) {
     // let backupFile = '';
     try {
-      // if (!body.name) throw new Error('nama barang kosong');
-      // if (!body.description) throw new Error('deskripsi barang kosong');
-      // if (!body.category_id) throw new Error('kategori barang kosong');
-      // if (!body.price) throw new Error('harga barang kosong');
-
-      let imageFile = file.filename;
-      if(!file){
-        imageFile='product.png'
-      }
       const data = await products.create({
         name: body.name,
         description: body.description,
         category_id: body.category_id,
         price: body.price,
-        image: imageFile,
+        image: file.filename,
+        weightkg: body.weight
       });
       return {
         status: 201,
         message: 'Produk berhasil ditambahkan',
-        data: data
-      }
+        data: data,
+      };
     } catch (error) {
       // fs.unlinkSync('public/uploads/' + backupFile);
       return error.message;
@@ -39,7 +31,7 @@ export class DtoProductService {
   async findAll() {
     try {
       const data = await products.findAll({
-        include: {model:product_categories}
+        include: { model: product_categories },
       });
       if (!data) throw new Error('Data tidak ditemukan');
 
@@ -93,7 +85,7 @@ export class DtoProductService {
       return {
         status: 200,
         message: 'Data berhasil di update',
-        data: data2[1][0]
+        data: data2[1][0],
       };
     } catch (error) {
       return error.message;

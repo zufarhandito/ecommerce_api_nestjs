@@ -27,6 +27,7 @@ export class order_details
 {
   @Column({
     primaryKey: true,
+    autoIncrement: true,
     type: DataType.INTEGER,
     defaultValue: Sequelize.literal(
       "nextval('order_details_id_seq'::regclass)",
@@ -48,15 +49,15 @@ export class order_details
 
   @Column({
     allowNull: true,
-    type: DataType.DATE(6),
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    type: DataType.DATE,
+    defaultValue: Sequelize.literal('now()'),
   })
   createdat?: Date;
 
   @Column({
     allowNull: true,
-    type: DataType.DATE(6),
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    type: DataType.DATE,
+    defaultValue: Sequelize.literal('now()'),
   })
   updatedat?: Date;
 

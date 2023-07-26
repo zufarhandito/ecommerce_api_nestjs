@@ -28,6 +28,7 @@ export class users
   @ForeignKey(() => customers)
   @Column({
     primaryKey: true,
+    autoIncrement: true,
     type: DataType.INTEGER,
     defaultValue: Sequelize.literal("nextval('users_id_seq'::regclass)"),
   })
@@ -42,15 +43,15 @@ export class users
 
   @Column({
     allowNull: true,
-    type: DataType.DATE(6),
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    type: DataType.DATE,
+    defaultValue: Sequelize.literal('now()'),
   })
   createdat?: Date;
 
   @Column({
     allowNull: true,
-    type: DataType.DATE(6),
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    type: DataType.DATE,
+    defaultValue: Sequelize.literal('now()'),
   })
   updatedat?: Date;
 

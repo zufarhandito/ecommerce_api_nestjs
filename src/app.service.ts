@@ -7,7 +7,10 @@ import { Sequelize } from 'sequelize-typescript';
 
 @Injectable()
 export class AppService {
-  constructor(private jwtService: JwtService, private readonly sequelize:Sequelize) {}
+  constructor(
+    private jwtService: JwtService,
+    private readonly sequelize: Sequelize,
+  ) {}
 
   async login(body: any): Promise<any> {
     try {
@@ -16,9 +19,9 @@ export class AppService {
         where: {
           username: body.username,
         },
-        include:{
-          model: customers
-        }
+        include: {
+          model: customers,
+        },
       });
 
       if (!data) throw new Error('User tidak ditemukan');
@@ -28,19 +31,19 @@ export class AppService {
 
       const payload = { username: body.username };
 
-      const token = this.jwtService.sign(payload)
+      const token = this.jwtService.sign(payload);
 
       // response.cookie('token', token)
 
       return {
         message: 'success',
-        access_token:token ,
-        data: data
+        access_token: token,
+        data: data,
       };
     } catch (error) {
       return {
         status: 400,
-        message: error.message
+        message: error.message,
       };
     }
   }

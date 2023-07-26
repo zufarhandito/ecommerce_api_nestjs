@@ -23,8 +23,8 @@ export class DtoProductCategoryService {
       };
       return {
         message: 'sukses',
-        data: result
-      }
+        data: result,
+      };
     } catch (error) {
       return error.message;
     }
@@ -69,7 +69,7 @@ export class DtoProductCategoryService {
       return {
         status: 200,
         message: 'sukses',
-        data: data
+        data: data,
       };
     } catch (error) {
       return error.message;

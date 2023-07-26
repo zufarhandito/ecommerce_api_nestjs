@@ -42,15 +42,15 @@ export class product_categories
 
   @Column({
     allowNull: true,
-    type: DataType.DATE(6),
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    type: DataType.DATE,
+    defaultValue: Sequelize.literal('now()'),
   })
   createdat?: Date;
 
   @Column({
     allowNull: true,
-    type: DataType.DATE(6),
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    type: DataType.DATE,
+    defaultValue: Sequelize.literal('now()'),
   })
   updatedat?: Date;
 

@@ -54,9 +54,9 @@ import { AuthGuard } from './auth.guard';
   ],
 })
 export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware)
-      .exclude('login')
-      .forRoutes('*')
-  }
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer.apply(LoggerMiddleware)
+  //     .exclude('login')
+  //     .forRoutes('*')
+  // }
 }

@@ -52,13 +52,11 @@ export class DtoUserService {
       dataBody.password = hashed;
 
       const data = `[${JSON.stringify(dataBody)}]`;
-      await this.sequelize.query(
-        `CALL InsertUserCustomer('${data}')`,
-      );
+      await this.sequelize.query(`CALL InsertUserCustomer('${data}')`);
       // return dataBody
       return {
         status: 201,
-        message: "Data berhasil dibuat"
+        message: 'Data berhasil dibuat',
       };
     } catch (error) {
       return error.message;
@@ -146,8 +144,8 @@ export class DtoUserService {
       return {
         status: 200,
         message: 'Success',
-        data: data
-      }
+        data: data,
+      };
     } catch (error) {
       return error.message;
     }
@@ -156,10 +154,10 @@ export class DtoUserService {
   async findOne(id: number) {
     try {
       const data = await users.findOne({
-        where:{
-          id:id
+        where: {
+          id: id,
         },
-        include:{model:customers}
+        include: { model: customers },
       });
       return data;
     } catch (error) {
@@ -185,16 +183,15 @@ export class DtoUserService {
         username: updateDtoUserDto.username,
         password: password,
         firstname: updateDtoUserDto.firstname,
-        lastname: updateDtoUserDto.lastname
-      }
+        lastname: updateDtoUserDto.lastname,
+      };
 
       const data2 = `[${JSON.stringify(newObj)}]`;
       await this.sequelize.query(`call updateusercustomer('${data2}')`);
 
       return {
-        message: "Update berhasil!"
-      }
-
+        message: 'Update berhasil!',
+      };
     } catch (error) {
       return error.message;
     }
@@ -208,33 +205,34 @@ export class DtoUserService {
       await this.sequelize.query(`delete from users where id = ${id}`);
 
       return {
-        message: 'Berhasil dihapus'
-      }
+        message: 'Berhasil dihapus',
+      };
     } catch (error) {
       return error.message;
     }
   }
 
-  async getPaginatedUsers(dataa: any): Promise<any>{
+  async getPaginatedUsers(dataa: any): Promise<any> {
     try {
-      const jumlah:any = await this.sequelize.query('select count(users.id) from users join customers on users.id = customers.user_id')
+      const jumlah: any = await this.sequelize.query(
+        'select count(users.id) from users join customers on users.id = customers.user_id',
+      );
 
       const data = await this.sequelize.query(`select * from users
       join customers on users.id = customers.user_id
       order by users.id
-      limit ${dataa.limit} offset ${dataa.offset}`)
+      limit ${dataa.limit} offset ${dataa.offset}`);
 
       return {
         status: 200,
         message: 'sukses',
         totalData: jumlah[0][0].count,
         data: data[0],
-      }
-
+      };
     } catch (error) {
       return {
-        message: 'gagal'
-      }
+        message: 'gagal',
+      };
     }
   }
 }

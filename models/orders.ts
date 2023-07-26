@@ -16,7 +16,7 @@ export interface ordersAttributes {
   id?: number;
   user_id?: number;
   totalproduct?: number;
-  totalprice?: string;
+  totalprice?: number;
   createdat?: Date;
   updatedat?: Date;
 }
@@ -28,6 +28,7 @@ export class orders
 {
   @Column({
     primaryKey: true,
+    autoIncrement: true,
     type: DataType.INTEGER,
     defaultValue: Sequelize.literal("nextval('orders_id_seq'::regclass)"),
   })
@@ -41,20 +42,20 @@ export class orders
   @Column({ allowNull: true, type: DataType.INTEGER })
   totalproduct?: number;
 
-  @Column({ allowNull: true, type: DataType.DECIMAL })
-  totalprice?: string;
+  @Column({ allowNull: true, type: DataType.INTEGER })
+  totalprice?: number;
 
   @Column({
     allowNull: true,
-    type: DataType.DATE(6),
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    type: DataType.DATE,
+    defaultValue: Sequelize.literal('now()'),
   })
   createdat?: Date;
 
   @Column({
     allowNull: true,
-    type: DataType.DATE(6),
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    type: DataType.DATE,
+    defaultValue: Sequelize.literal('now()'),
   })
   updatedat?: Date;
 

@@ -5,7 +5,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { product_categories, products } from 'models';
 
 @Module({
-  imports: [SequelizeModule.forFeature([products,product_categories])],
+  imports: [SequelizeModule.forFeature([products, product_categories])],
   controllers: [DtoProductController],
   providers: [DtoProductService],
 })

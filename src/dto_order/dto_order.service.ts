@@ -66,7 +66,10 @@ export class DtoOrderService {
     }
   }
 
-  async update(id: number, body: UpdateDtoOrderDto[]): Promise<{message: string, logs: string[]}> {
+  async update(
+    id: number,
+    body: UpdateDtoOrderDto[],
+  ): Promise<{ message: string; logs: string[] }> {
     try {
       //Oke, pertama tama kita cari dulu produk apa saja yang ada di order x
       const previousOrder = await orders.findOne({
@@ -82,17 +85,17 @@ export class DtoOrderService {
        * 1. cari produk apa saja yang di request
        * 2. cari produk apa saja yang ada di database
        */
-      let requestedProduct:number[] = [];
-      let storedProduct:number[] = [];
+      let requestedProduct: number[] = [];
+      let storedProduct: number[] = [];
       let toBeAdded: number[] = [];
       let toBeDeleted: number[] = [];
       let toBeUpdated: number[] = [];
-      
-      let totalprice:number = 0;
-      let totalproduct:number = 0;
-      let user_id:number = 0;
 
-      let message:string[] = [];
+      let totalprice: number = 0;
+      let totalproduct: number = 0;
+      let user_id: number = 0;
+
+      let message: string[] = [];
 
       for (let i in body) {
         user_id = body[i].user_id;
@@ -153,15 +156,15 @@ export class DtoOrderService {
         message.push(`menambahkan produk dengan id ${toBeAdded}`);
       }
 
-      if(toBeUpdated.length !== 0){
+      if (toBeUpdated.length !== 0) {
         const data = `${JSON.stringify(body)}`;
         const data2 = `[${JSON.stringify(newObj)}]`;
 
-        await this.sequelize.query(
-          `CALL updateorder('${data}','${data2}')`,
-        );
+        await this.sequelize.query(`CALL updateorder('${data}','${data2}')`);
 
-        message.push(`menyunting data dengan order id ${id} dan produk id ${toBeUpdated}`)
+        message.push(
+          `menyunting data dengan order id ${id} dan produk id ${toBeUpdated}`,
+        );
       }
 
       // return {
